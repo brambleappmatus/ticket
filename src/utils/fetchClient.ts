@@ -8,16 +8,13 @@ export async function fetchClient(endpoint: string, options: FetchOptions = {}) 
   const config = getApiConfig();
   const { params = {}, ...fetchOptions } = options;
   
-  // Build the URL with the instance
-  const baseUrl = `https://${config.INSTANCE_URL}/api/v6`;
-  
   // Add access token to params
   const queryParams = new URLSearchParams({
     accessToken: config.ACCESS_TOKEN,
     ...params
   });
   
-  const url = `${baseUrl}${endpoint}?${queryParams}`;
+  const url = `/api/proxy${endpoint}?${queryParams}`;
 
   try {
     const response = await fetch(url, {
