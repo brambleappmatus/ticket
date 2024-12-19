@@ -1,0 +1,114 @@
+/* CSS Variables */
+:root {
+  --mac-beige: #F9F9F9;
+  --mac-beige-light: #FFFFFF;
+  --mac-beige-dark: #F0F0F0;
+  --mac-black: #1A1A1A;
+  --mac-border: #000000;
+  --border-width: 3px;
+}
+
+.dark {
+  --mac-beige: #1A1A1A;
+  --mac-beige-light: #2A2A2A;
+  --mac-beige-dark: #333333;
+  --mac-black: #FFFFFF;
+  --mac-border: #FFFFFF;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-[var(--mac-beige)] transition-colors duration-200;
+  }
+  
+  body {
+    @apply bg-[var(--mac-beige)] text-[var(--mac-black)] transition-colors duration-200;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+  }
+
+  input, textarea, select, button {
+    @apply transition-colors duration-200;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+  }
+}
+
+@layer components {
+  .mac-window {
+    @apply bg-[var(--mac-beige)] border-[var(--border-width)] border-[var(--mac-border)] rounded-none transition-colors duration-200;
+  }
+
+  .mac-button {
+    @apply border-[var(--border-width)] border-[var(--mac-border)] rounded-none 
+           bg-[var(--mac-beige-light)] text-[var(--mac-black)]
+           active:transform active:translate-x-[2px] active:translate-y-[2px]
+           disabled:opacity-50 disabled:cursor-not-allowed
+           hover:bg-[var(--mac-beige-dark)]
+           transition-all duration-200
+           font-medium;
+  }
+
+  .mac-input {
+    @apply border-[var(--border-width)] border-[var(--mac-border)] rounded-none 
+           bg-[var(--mac-beige-light)] text-[var(--mac-black)]
+           focus:ring-0 focus:border-[var(--mac-border)]
+           placeholder-gray-400 dark:placeholder-gray-600
+           transition-colors duration-200
+           font-medium;
+  }
+
+  .mac-select {
+    @apply mac-input appearance-none pr-8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='square' stroke-linejoin='miter' stroke-width='3' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+  }
+
+  .mac-checkbox {
+    @apply h-4 w-4 border-[var(--border-width)] border-[var(--mac-border)] 
+           bg-[var(--mac-beige-light)] text-[var(--mac-black)]
+           focus:ring-0 focus:ring-offset-0
+           rounded-none transition-colors duration-200;
+  }
+}
+
+/* Classic Mac scrollbar */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[var(--mac-beige)] border-[var(--border-width)] border-[var(--mac-border)] transition-colors duration-200;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[var(--mac-black)] border-[var(--border-width)] border-[var(--mac-border)] transition-colors duration-200;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-[var(--mac-beige-dark)] transition-colors duration-200;
+}
+
+/* Sharp corners for all interactive elements */
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+textarea,
+select,
+button {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
