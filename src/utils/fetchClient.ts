@@ -8,12 +8,16 @@ export async function fetchClient(endpoint: string, options: FetchOptions = {}) 
   const config = getApiConfig();
   const { params = {}, ...fetchOptions } = options;
   
-  // Add access token to params
-  params._method = params._method || 'POST';
-  params.accessToken = config.ACCESS_TOKEN;
+  // Build the URL with the instance
+  const baseUrl = `https://${config.INSTANCE_URL}/api/v6`;
   
-  const queryString = new URLSearchParams(params).toString();
-  const url = `${config.BASE_URL}${endpoint}?${queryString}`;
+  // Add access token to params
+  const queryParams = new URLSearchParams({
+    accessToken: config.ACCESS_TOKEN,
+    ...params
+  });
+  
+  const url = `${baseUrl}${endpoint}?${queryParams}`;
 
   try {
     const response = await fetch(url, {
@@ -26,8 +30,8 @@ export async function fetchClient(endpoint: string, options: FetchOptions = {}) 
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      if (errorData.error?.form) {
+      const errorData = await response.json().catch(() => null);
+      if (errorData?.error?.form) {
         const formErrors = Object.entries(errorData.error.form)
           .map(([field, message]) => `${field}: ${message}`)
           .join(', ');

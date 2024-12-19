@@ -5,15 +5,5 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     exclude: ['lucide-react'],
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://mstanotest.daktela.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/api/v6'),
-        secure: false,
-      },
-    },
-  },
+  }
 });
